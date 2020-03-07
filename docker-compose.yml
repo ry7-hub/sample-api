@@ -8,7 +8,7 @@ services:
     ports:
       - 5432:5432
     networks:
-      sample-api_default:
+      sample-network:
         ipv4_address: 172.30.0.3
     volumes:
       # 起動スクリプト
@@ -21,7 +21,7 @@ services:
     ports:
       - "8081:8081"
     networks:
-      sample-api_default:
+      sample-network:
         ipv4_address: 172.30.0.2
     volumes:
       - .:/app
@@ -29,7 +29,7 @@ services:
     tty: true
     command: ./mvnw spring-boot:run
 networks:
-  sample-api_default:
+  sample-network:
     driver: bridge
     ipam:
      driver: default
