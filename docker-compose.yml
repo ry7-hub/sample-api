@@ -8,8 +8,7 @@ services:
     ports:
       - 5432:5432
     networks:
-      sample-api_default: 
-        ipv4_address: 172.30.0.3
+      - sample-network
     volumes:
       # 起動スクリプト
       - ./initdb:/docker-entrypoint-initdb.d
@@ -21,18 +20,12 @@ services:
     ports:
       - "8081:8081"
     networks:
-      sample-api_default: 
-        ipv4_address: 10.0.0.2
+      - sample-network
     volumes:
       - .:/app
     working_dir: /app
     tty: true
     command: ./mvnw spring-boot:run
 networks:
-  sample-api_default:
-    driver: bridge
-    ipam:
-     driver: default
-     config:
-       - subnet: 172.30.0.0/24
-       - gateway: 172.30.0.1
+  sample-network:
+    external: true
