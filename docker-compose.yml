@@ -22,7 +22,7 @@ services:
       - "8081:8081"
     networks:
       sample-api_default: 
-        ipv4_address: 172.30.0.2
+        ipv4_address: 10.0.0.2
     volumes:
       - .:/app
     working_dir: /app
@@ -35,4 +35,4 @@ networks:
      driver: default
      config:
        - subnet: 172.30.0.0/24
-         gateway: 172.30.0.1
+       - gateway: 172.30.0.1
