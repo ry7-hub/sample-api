@@ -9,7 +9,11 @@ services:
       - 5432:5432
     volumes:
       # 起動スクリプト
-      - ./initdb:/docker-entrypoint-initdb.d
+      - /home/docker/build_machine_vbox_2/SampleApi/initdb:/docker-entrypoint-initdb.d
+      # MySQLの設定ファイル
+      #- ./docker/mysql/config:/etc/mysql/conf.d
+      # DBの永続化
+      #- mysql_db:/var/lib/mysql
   app:
     image: openjdk:8-jdk-alpine
     depends_on:
@@ -18,7 +22,11 @@ services:
     ports:
       - "8081:8081"
     volumes:
-      - .:/app
+      - /home/docker/build_machine_vbox_2/SampleApi:/app
     working_dir: /app
     tty: true
     command: ./mvnw spring-boot:run
+# DBの永続化先
+#volumes:
+#  mysql_db:
+#    driver: local
