@@ -1,0 +1,32 @@
+version: '3'
+services:
+  db:
+    image: postgres:11
+    container_name: postgres
+    # postgresの環境変数
+    env_file: ./env/env_postgres
+    ports:
+      - 5432:5432
+    volumes:
+      # 起動スクリプト
+      - /home/docker/build_machine_vbox_2/SampleApi/initdb:/docker-entrypoint-initdb.d
+      # MySQLの設定ファイル
+      #- ./docker/mysql/config:/etc/mysql/conf.d
+      # DBの永続化
+      #- mysql_db:/var/lib/mysql
+  app:
+    image: openjdk:8-jdk-alpine
+    depends_on:
+      # dbが起動してからappを起動
+      - db
+    ports:
+      - "8081:8081"
+    volumes:
+      - /home/docker/build_machine_vbox_2/SampleApi:/app
+    working_dir: /app
+    tty: true
+    command: ./mvnw spring-boot:run
+# DBの永続化先
+#volumes:
+#  mysql_db:
+#    driver: local
