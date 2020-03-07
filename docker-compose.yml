@@ -7,6 +7,8 @@ services:
     env_file: ./env/env_postgres
     ports:
       - 5432:5432
+    networks:
+      - sample-network
     volumes:
       # 起動スクリプト
       - ./initdb:/docker-entrypoint-initdb.d
@@ -17,8 +19,13 @@ services:
       - db
     ports:
       - "8081:8081"
+    networks:
+      - sample-network
     volumes:
       - .:/app
     working_dir: /app
     tty: true
     command: ./mvnw spring-boot:run
+networks:
+  sample-network:
+    external: true 
