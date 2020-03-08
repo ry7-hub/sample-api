@@ -64,7 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         corsConfiguration.addAllowedHeader(CorsConfiguration.ALL);
         // jwt用のhttpヘッダーを登録
         corsConfiguration.addExposedHeader("Authorization");
-        corsConfiguration.addAllowedOrigin("http://172.30.0.10:3000");// AWS用
+        corsConfiguration.addAllowedOrigin(CorsConfiguration.ALL);
+//        corsConfiguration.addAllowedOrigin("http://172.30.0.10:3000");// AWS用
 //        corsConfiguration.addAllowedOrigin("http://localhost:3000");
         corsConfiguration.setAllowCredentials(true);
 
